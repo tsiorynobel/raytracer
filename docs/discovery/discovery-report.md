@@ -187,14 +187,83 @@ A Los Angeles animation studio needs rendering software that its own team can un
 
 ### Programming paradigms
 
-[Your first understanding.]
+C++ is multi-paradigm: it lets me choose the right style for each problem. For this project I would use modern C++ (C++17 or later).
+
+| Paradigm | In C++ | Example in a ray tracer |
+|---|---|---|
+| Procedural | Functions and structures, as in C | A function that computes a dot product |
+| Object-oriented | Classes, encapsulation, inheritance, virtual functions | Sphere and Plane as kinds of Shape |
+| Generic | Templates, checked at compile time | One vector type for `float` or `double` |
+| Functional | Lambdas, standard algorithms | Sorting the hits of a ray by distance |
+
+**Compared with Python and JavaScript:**
+
+- C++ is **compiled and statically typed**: many errors are found before the program runs.
+- C++ has **no garbage collector**: I decide when memory is created and freed.
+- Result: more speed and control, but more responsibility.
 
 ### What to watch out for
 
-[Your first understanding.]
+C++ leaves memory and safety to me. Classic traps:
+
+- **Memory leaks:** memory allocated and never freed.
+- **Dangling pointers:** using an object that no longer exists.
+- **Undefined behaviour:** reading outside an array or using an uninitialised variable. No error, but random results later.
+- **Floating-point precision:** a ray can hit its own surface again because of rounding errors, and a bad calculation can give `NaN`. Both produce black pixels, with no warning. This is one possible cause of the client's black spots.
+- **Data races:** two threads changing the same data. The image changes between runs, which breaks the client's need for the same output every time.
+- **Hidden copies:** passing big objects by value slows the program down without any warning.
+
+**How to avoid them:** RAII (an object frees its own resources), smart pointers (`std::unique_ptr`), standard containers (`std::vector`), compiler warnings and sanitizers (AddressSanitizer, UndefinedBehaviorSanitizer).
 
 ### Shaping the domain model
 
-[Your first understanding.]
+The domain model is how the code represents the client's concepts: scene, camera, ray, shapes, materials and lights.
 
-**Sources:** [What you started from and the reference you would come back to, with links.]
+```mermaid
+classDiagram
+    class Scene
+    class Camera {
+        +generateRay(x, y) Ray
+    }
+    class Light
+    class Shape {
+        <<interface>>
+        +intersect(Ray) optional~Hit~
+    }
+    class Sphere
+    class Plane
+    class Material
+    class Ray {
+        +origin Vec3
+        +direction Vec3
+    }
+    class Hit {
+        +distance double
+        +point Vec3
+        +normal Vec3
+    }
+    class Vec3
+
+    Scene *-- Camera
+    Scene *-- "many" Shape
+    Scene *-- "many" Light
+    Shape <|-- Sphere
+    Shape <|-- Plane
+    Shape o-- Material
+    Camera ..> Ray : creates
+    Shape ..> Hit : returns
+    Ray --> Vec3
+    Hit --> Vec3
+```
+
+- **Small value types** for maths (`Vec3`, `Ray`, `Hit`, `Color`): simple, cheap to copy, used millions of times per image.
+- **Polymorphism** for shapes: one `Shape` interface, so adding a new shape means adding a class without changing the renderer. This answers the client's need to add their own features.
+- **No hit is a normal case:** `intersect` returns `std::optional<Hit>`, so "the ray missed" is explicit, with no magic value.
+- **Clear ownership:** the scene owns its shapes through `std::unique_ptr`, so it is always clear who creates and destroys each object.
+- **Composition over inheritance:** a shape *has* a material, instead of a "RedSphere" subclass. The model stays simple and easy to maintain.
+- **Trade-off:** a virtual call has a small cost, and `intersect` runs millions of times per image. `std::variant` is a faster alternative but harder to extend. I would start with the interface, then measure before changing it.
+
+**Sources:**
+
+- Started from: [LearnCpp.com](https://www.learncpp.com/), a free step-by-step tutorial on modern C++.
+- Reference I would come back to: [cppreference.com](https://en.cppreference.com/) for the language and the standard library, and the [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) by Bjarne Stroustrup and Herb Sutter for good practices.
