@@ -206,17 +206,6 @@ A Los Angeles animation studio needs rendering software that its own team can un
 
 Ray tracing creates an image by following rays of light backwards, from the camera into the scene. **What goes in:** a scene with a camera, objects, materials and lights. **What comes out:** an image. **In between:** for each pixel, the program sends a ray and finds the first object it hits. It then checks if that point is lit by the lights and computes its colour. Mirrors and glass send new rays, which add their colour. If the ray hits nothing, the pixel gets the background colour. Each pixel is independent, so the work can be shared between many CPU cores and many machines.
 
-```mermaid
-flowchart LR
-    A[Scene] --> B[Ray for each pixel]
-    B --> C{Hits an object?}
-    C -- No --> D[Background colour]
-    C -- Yes --> E[Light and material]
-    E --> F[Pixel colour]
-    D --> F
-    F --> G[Image]
-```
-
 **Sources:**
 
 - Started from: [Ray Tracing in One Weekend](https://raytracing.github.io/), a free book series that builds a simple ray tracer step by step.
