@@ -173,9 +173,21 @@ A Los Angeles animation studio needs rendering software that its own team can un
 
 | Solution | Maker | Licence | Pricing (date checked) | Capabilities | Sources |
 |---|---|---|---|---|---|
-| | | | | | |
+| Arnold | Autodesk | Proprietary, subscription | About $430 per year per licence (checked 16 Nov 2026, third-party source: Autodesk's page was not reachable) | Production renderer for film, CPU and GPU, included with Maya | [SuperRenders Farm](https://superrendersfarm.com/article/arnold-renderer-complete-guide) |
+| RenderMan | Pixar | Proprietary, free for non-commercial use | $595 per commercial licence (checked 16 Nov 2026) | Pixar's renderer for animated feature films | [RenderMan FAQ](https://renderman.pixar.com/upgrade-faq) |
+| V-Ray | Chaos | Proprietary, subscription | Solo €379.20 per year, Premium €565.44 per year, render node price not published (checked 16 Nov 2026) | CPU, GPU or hybrid rendering | [Chaos V-Ray](https://www.chaos.com/vray) |
+| Maya (client's current tool) | Autodesk | Proprietary, subscription | About $2,010 per year per seat (checked 16 Nov 2026, third-party source that read Autodesk's page on 6 Oct 2026) | Full 3D creation suite, renders with Arnold | [SuperRenders Farm](https://superrendersfarm.com/article/what-3d-software-costs-2026) |
+| Cycles | Blender project | Apache 2.0 | Free (checked 16 Nov 2026) | Physically based production renderer, can be used in commercial software | [Cycles](https://www.cycles-renderer.org/) |
+| pbrt-v4 | Matt Pharr, Wenzel Jakob, Greg Humphreys | Apache 2.0 | Free (checked 16 Nov 2026) | Reference renderer written in C++17, CPU by default, NVIDIA GPU optional | [GitHub](https://github.com/mmp/pbrt-v4) |
+| appleseed | appleseed community | MIT | Free (checked 16 Nov 2026) | Physically based renderer for animation and visual effects, written in C++, current activity unclear | [GitHub](https://github.com/appleseedhq/appleseed) |
+| Embree | Intel | Apache 2.0 | Free (checked 16 Nov 2026) | Fast ray tracing library for CPUs, not a full renderer | [Embree](https://www.embree.org/) |
 
-[A few lines: what do you conclude from this table?]
+**What I conclude:**
+
+- **What they have in common:** all of them are mature, physically based renderers that already produce film-quality images.
+- **Commercial tools:** they are paid per licence, so the cost grows with every artist and every render node. This is exactly how the client reached over $2 million. They are also closed: the client cannot add their own features.
+- **Open-source tools:** they are free and can be modified, but they are large codebases built for other goals: research, teaching, GPU rendering or general-purpose 3D. A small in-house team would struggle to own them, which brings back the "key person" risk from the last project.
+- **For this client:** no solution combines CPU-only rendering, a small and understandable codebase, easy extension and full ownership. This justifies building a new renderer. Embree could still be useful later as a building block to speed up ray intersections.
 
 ## What is ray tracing?
 
