@@ -176,20 +176,22 @@ A Los Angeles animation studio needs rendering software that its own team can un
 | Arnold    | Autodesk                | Proprietary | About $430/year (16 Nov 2026) (1)   | Film renderer, CPU and GPU                   | [SuperRenders Farm][arnold] |
 | RenderMan | Pixar                   | Proprietary | $595 per licence (16 Nov 2026)      | Renderer for animated films                  | [Pixar][renderman]          |
 | V-Ray     | Chaos                   | Proprietary | From €379.20/year (16 Nov 2026) (2) | CPU, GPU or hybrid                           | [Chaos][vray]               |
-| Maya      | Autodesk                | Proprietary | About $2,010/year (16 Nov 2026) (1) | 3D suite, renders with Arnold                | [SuperRenders Farm][maya]   |
+| Maya      | Autodesk                | Proprietary | $2,010/year (16 Nov 2026) (3)       | 3D suite, renders with Arnold                | [Autodesk][maya]            |
 | Cycles    | Blender                 | Apache 2.0  | Free (16 Nov 2026)                  | Production renderer                          | [Cycles][cycles]            |
 | pbrt-v4   | Pharr, Jakob, Humphreys | Apache 2.0  | Free (16 Nov 2026)                  | Reference renderer in C++17                  | [GitHub][pbrt]              |
 | appleseed | appleseed community     | MIT         | Free (16 Nov 2026)                  | Renderer for animation and VFX               | [GitHub][appleseed]         |
 | Embree    | Intel                   | Apache 2.0  | Free (16 Nov 2026)                  | CPU ray tracing library, not a full renderer | [Embree][embree]            |
 
-(1) Autodesk's own price page was not reachable, so this price comes from a third-party source. Maya is the client's current tool.
+(1) Autodesk's Arnold page does not show a readable standalone price, so this price comes from a third-party source.
 
 (2) V-Ray Solo is €379.20/year and Premium is €565.44/year. The price of render node licences is not published.
+
+(3) Official Autodesk price for one seat. Maya is the client's current tool, and Arnold is included with it.
 
 [arnold]: https://superrendersfarm.com/article/arnold-renderer-complete-guide
 [renderman]: https://renderman.pixar.com/upgrade-faq
 [vray]: https://www.chaos.com/vray
-[maya]: https://superrendersfarm.com/article/what-3d-software-costs-2026
+[maya]: https://www.autodesk.com/products/maya/buy
 [cycles]: https://www.cycles-renderer.org/
 [pbrt]: https://github.com/mmp/pbrt-v4
 [appleseed]: https://github.com/appleseedhq/appleseed
