@@ -2,7 +2,7 @@
 
 ## Problem statement
 
-[One sentence.]
+A Los Angeles animation studio needs rendering software that its own team can understand, trust and adapt, so that it can deliver full-length films on time, but its last renderer produced defects that nobody could explain once its author had left, and the commercial alternative is too expensive and too closed to meet its needs.
 
 ## Client interview summary
 
