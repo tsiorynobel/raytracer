@@ -171,16 +171,29 @@ A Los Angeles animation studio needs rendering software that its own team can un
 
 ## State of the art
 
-| Solution | Maker | Licence | Pricing (date checked) | Capabilities | Sources |
-|---|---|---|---|---|---|
-| Arnold | Autodesk | Proprietary, subscription | About $430 per year per licence (checked 16 Nov 2026, third-party source: Autodesk's page was not reachable) | Production renderer for film, CPU and GPU, included with Maya | [SuperRenders Farm](https://superrendersfarm.com/article/arnold-renderer-complete-guide) |
-| RenderMan | Pixar | Proprietary, free for non-commercial use | $595 per commercial licence (checked 16 Nov 2026) | Pixar's renderer for animated feature films | [RenderMan FAQ](https://renderman.pixar.com/upgrade-faq) |
-| V-Ray | Chaos | Proprietary, subscription | Solo €379.20 per year, Premium €565.44 per year, render node price not published (checked 16 Nov 2026) | CPU, GPU or hybrid rendering | [Chaos V-Ray](https://www.chaos.com/vray) |
-| Maya (client's current tool) | Autodesk | Proprietary, subscription | About $2,010 per year per seat (checked 16 Nov 2026, third-party source that read Autodesk's page on 6 Oct 2026) | Full 3D creation suite, renders with Arnold | [SuperRenders Farm](https://superrendersfarm.com/article/what-3d-software-costs-2026) |
-| Cycles | Blender project | Apache 2.0 | Free (checked 16 Nov 2026) | Physically based production renderer, can be used in commercial software | [Cycles](https://www.cycles-renderer.org/) |
-| pbrt-v4 | Matt Pharr, Wenzel Jakob, Greg Humphreys | Apache 2.0 | Free (checked 16 Nov 2026) | Reference renderer written in C++17, CPU by default, NVIDIA GPU optional | [GitHub](https://github.com/mmp/pbrt-v4) |
-| appleseed | appleseed community | MIT | Free (checked 16 Nov 2026) | Physically based renderer for animation and visual effects, written in C++, current activity unclear | [GitHub](https://github.com/appleseedhq/appleseed) |
-| Embree | Intel | Apache 2.0 | Free (checked 16 Nov 2026) | Fast ray tracing library for CPUs, not a full renderer | [Embree](https://www.embree.org/) |
+| Solution  | Maker                   | Licence     | Pricing (date checked)              | Capabilities                                 | Sources                     |
+|-----------|-------------------------|-------------|-------------------------------------|----------------------------------------------|-----------------------------|
+| Arnold    | Autodesk                | Proprietary | About $430/year (16 Nov 2026) (1)   | Film renderer, CPU and GPU                   | [SuperRenders Farm][arnold] |
+| RenderMan | Pixar                   | Proprietary | $595 per licence (16 Nov 2026)      | Renderer for animated films                  | [Pixar][renderman]          |
+| V-Ray     | Chaos                   | Proprietary | From €379.20/year (16 Nov 2026) (2) | CPU, GPU or hybrid                           | [Chaos][vray]               |
+| Maya      | Autodesk                | Proprietary | About $2,010/year (16 Nov 2026) (1) | 3D suite, renders with Arnold                | [SuperRenders Farm][maya]   |
+| Cycles    | Blender                 | Apache 2.0  | Free (16 Nov 2026)                  | Production renderer                          | [Cycles][cycles]            |
+| pbrt-v4   | Pharr, Jakob, Humphreys | Apache 2.0  | Free (16 Nov 2026)                  | Reference renderer in C++17                  | [GitHub][pbrt]              |
+| appleseed | appleseed community     | MIT         | Free (16 Nov 2026)                  | Renderer for animation and VFX               | [GitHub][appleseed]         |
+| Embree    | Intel                   | Apache 2.0  | Free (16 Nov 2026)                  | CPU ray tracing library, not a full renderer | [Embree][embree]            |
+
+(1) Autodesk's own price page was not reachable, so this price comes from a third-party source. Maya is the client's current tool.
+
+(2) V-Ray Solo is €379.20/year and Premium is €565.44/year. The price of render node licences is not published.
+
+[arnold]: https://superrendersfarm.com/article/arnold-renderer-complete-guide
+[renderman]: https://renderman.pixar.com/upgrade-faq
+[vray]: https://www.chaos.com/vray
+[maya]: https://superrendersfarm.com/article/what-3d-software-costs-2026
+[cycles]: https://www.cycles-renderer.org/
+[pbrt]: https://github.com/mmp/pbrt-v4
+[appleseed]: https://github.com/appleseedhq/appleseed
+[embree]: https://www.embree.org/
 
 **What I conclude:**
 
