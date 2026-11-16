@@ -189,12 +189,10 @@ A Los Angeles animation studio needs rendering software that its own team can un
 
 C++ is multi-paradigm: it lets me choose the right style for each problem. For this project I would use modern C++ (C++17 or later).
 
-| Paradigm | In C++ | Example in a ray tracer |
-|---|---|---|
-| Procedural | Functions and structures, as in C | A function that computes a dot product |
-| Object-oriented | Classes, encapsulation, inheritance, virtual functions | Sphere and Plane as kinds of Shape |
-| Generic | Templates, checked at compile time | One vector type for `float` or `double` |
-| Functional | Lambdas, standard algorithms | Sorting the hits of a ray by distance |
+- **Procedural:** the program is a list of steps, written as functions. Example: a function that computes the dot product of two vectors.
+- **Object-oriented:** data and the functions that use it are grouped in classes. Example: `Sphere` and `Plane` are two kinds of `Shape`.
+- **Generic:** the same code works with different types, and the compiler checks it. Example: one `Vec3` type that works with `float` or `double`.
+- **Functional:** small functions are passed to other functions. Example: sorting the hits of a ray by distance with a lambda.
 
 **Compared with Python and JavaScript:**
 
