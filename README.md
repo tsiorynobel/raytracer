@@ -27,11 +27,11 @@ The project runs in a dev container, so everyone has the same compiler and tools
 
 ```bash
 make run
-# (1, 0, 0)
+# Saved output.png (512 x 512)
 ```
 
-The program traces one ray from a pinhole camera at (0, 0, -1) towards a red sphere and
-prints the colour of that pixel.
+The program traces one ray per pixel from a pinhole camera at (0, 0, -1) towards a red
+sphere and saves the picture as `output.png` in the project folder (not committed).
 
 ## Documentation
 
