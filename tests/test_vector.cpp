@@ -2,10 +2,7 @@
 #include "vector.h"
 
 TEST_CASE("Adding two vectors adds each component", "[vector]") {
-    Vector a(3, 4, 0);
-    Vector b(4, -3, 0);
-
-    Vector sum = a.add(b);
+    Vector sum = Vector(3, 4, 0) + Vector(4, -3, 0);
 
     REQUIRE(sum.x() == 7);
     REQUIRE(sum.y() == 1);
@@ -13,10 +10,7 @@ TEST_CASE("Adding two vectors adds each component", "[vector]") {
 }
 
 TEST_CASE("Adding two vectors also adds the z component", "[vector]") {
-    Vector a(3, 4, 1);
-    Vector b(4, -3, 2);
-
-    Vector sum = a.add(b);
+    Vector sum = Vector(3, 4, 1) + Vector(4, -3, 2);
 
     REQUIRE(sum.x() == 7);
     REQUIRE(sum.y() == 1);
