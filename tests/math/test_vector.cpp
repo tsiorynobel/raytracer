@@ -1,16 +1,9 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include "math/vector.h"
+#include "test_helpers.h"
 
 using Catch::Matchers::WithinAbs;
-
-static const double tolerance = 1e-9;
-
-static void requireVectorsEqual(const Vector& actual, const Vector& expected) {
-    REQUIRE_THAT(actual.x(), WithinAbs(expected.x(), tolerance));
-    REQUIRE_THAT(actual.y(), WithinAbs(expected.y(), tolerance));
-    REQUIRE_THAT(actual.z(), WithinAbs(expected.z(), tolerance));
-}
 
 TEST_CASE("Adding two vectors adds each component", "[vector]") {
     requireVectorsEqual(Vector(3, 4, 0) + Vector(4, -3, 0), Vector(7, 1, 0));
