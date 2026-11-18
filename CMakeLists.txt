@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Main executable
-add_executable(raytracer src/main.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp src/render/trace.cpp)
+add_executable(raytracer src/main.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp src/render/trace.cpp src/render/image.cpp)
 target_include_directories(raytracer PRIVATE src)
 
 # Testing
@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(Catch2)
 
 enable_testing()
 
-add_executable(tests tests/test_helpers.cpp tests/math/test_vector.cpp tests/colour/test_colour.cpp tests/geometry/test_ray.cpp tests/render/test_camera.cpp tests/geometry/test_sphere.cpp tests/render/test_trace.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp src/render/trace.cpp)
+add_executable(tests tests/test_helpers.cpp tests/math/test_vector.cpp tests/colour/test_colour.cpp tests/geometry/test_ray.cpp tests/render/test_camera.cpp tests/geometry/test_sphere.cpp tests/render/test_trace.cpp tests/render/test_image.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp src/render/trace.cpp src/render/image.cpp)
 target_include_directories(tests PRIVATE src tests)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 
