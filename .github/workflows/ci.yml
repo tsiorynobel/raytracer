@@ -1,0 +1,25 @@
+# See docs/adr/0005-github-actions-ci.md
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    # Same image as .devcontainer/devcontainer.json
+    container: mcr.microsoft.com/devcontainers/cpp:1-ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: make build
+
+      - name: Test
+        run: make test

@@ -24,6 +24,12 @@ make test
 make clean
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for dev container setup, make commands, TDD workflow, and how to work with ADRs.
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community standards.
+
 ## Architecture decisions
 
 Our architecture decisions live in `docs/adr/`. Read them before changing the build system, tooling, or test setup.

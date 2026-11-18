@@ -1,6 +1,11 @@
 # raytracer
 
+[![CI](https://github.com/tsiorynobel/raytracer/actions/workflows/ci.yml/badge.svg)](https://github.com/tsiorynobel/raytracer/actions/workflows/ci.yml)
+
 A C++ ray tracer, built step by step with test-driven development.
+
+Licence: [MIT](LICENSE) · [Contributing](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) ·
+[Architecture decisions](docs/adr/)
 
 The client's needs are in the [discovery report](docs/discovery/discovery-report.md).
 
