@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "math/vector.h"
 #include <cmath>
 
 Vector::Vector(double x, double y, double z) : _x(x), _y(y), _z(z) {}

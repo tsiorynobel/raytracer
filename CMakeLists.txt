@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Main executable
-add_executable(raytracer src/main.cpp src/vector.cpp)
+add_executable(raytracer src/main.cpp src/math/vector.cpp)
 target_include_directories(raytracer PRIVATE src)
 
 # Testing
@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(Catch2)
 
 enable_testing()
 
-add_executable(tests tests/test_main.cpp tests/test_vector.cpp src/vector.cpp)
+add_executable(tests tests/test_main.cpp tests/math/test_vector.cpp src/math/vector.cpp)
 target_include_directories(tests PRIVATE src tests)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 
