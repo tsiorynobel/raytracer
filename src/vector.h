@@ -18,6 +18,7 @@ public:
 
     double dot(const Vector& other) const;
     double length() const;
+    Vector normalised() const;
 };
 
 Vector operator*(double t, const Vector& v);

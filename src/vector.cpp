@@ -26,3 +26,7 @@ double Vector::dot(const Vector& other) const {
 double Vector::length() const {
     return std::sqrt(dot(*this));
 }
+
+Vector Vector::normalised() const {
+    return (1.0 / length()) * (*this);
+}
