@@ -2,3 +2,7 @@ build/
 .cache/
 *.o
 *.a
+
+# Render outputs written to the project root
+/*.png
+/*.ppm
