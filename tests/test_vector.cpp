@@ -52,3 +52,17 @@ TEST_CASE("The ray equation O + t * D gives the point at t", "[vector]") {
     REQUIRE(point.y() == 0);
     REQUIRE(point.z() == 0);
 }
+
+TEST_CASE("The dot product sums the products of the components", "[vector]") {
+    REQUIRE(Vector(3, 4, 0).dot(Vector(4, 3, 0)) == 24);
+    REQUIRE(Vector(3, 4, 12).dot(Vector(4, 3, 1)) == 36);
+}
+
+TEST_CASE("The dot product of perpendicular vectors is zero", "[vector]") {
+    REQUIRE(Vector(3, 4, 0).dot(Vector(4, -3, 0)) == 0);
+}
+
+TEST_CASE("The length of a vector uses all three components", "[vector]") {
+    REQUIRE(Vector(3, -4, 0).length() == 5);
+    REQUIRE(Vector(3, 4, 12).length() == 13);
+}
