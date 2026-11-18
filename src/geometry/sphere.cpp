@@ -1,4 +1,5 @@
 #include "geometry/sphere.h"
+#include <cmath>
 
 Sphere::Sphere(const Vector& centre, double radius, const Colour& colour)
     : _centre(centre), _radius(radius), _colour(colour) {}
@@ -14,5 +15,13 @@ bool Sphere::isHitBy(const Ray& ray) const {
     double c = L.dot(L) - _radius * _radius;
 
     double discriminant = b * b - 4.0 * a * c;
-    return discriminant >= 0.0;
+    if (discriminant < 0.0) {
+        return false;
+    }
+
+    double root = std::sqrt(discriminant);
+    double t1 = (-b - root) / (2.0 * a);
+    double t2 = (-b + root) / (2.0 * a);
+
+    return t1 > 0.0 || t2 > 0.0;
 }

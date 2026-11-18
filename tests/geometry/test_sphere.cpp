@@ -32,6 +32,14 @@ TEST_CASE("A ray beside the sphere misses it", "[sphere]") {
     REQUIRE_FALSE(sphere.isHitBy(ray));
 }
 
+TEST_CASE("A sphere behind the eye is not hit", "[sphere]") {
+    // L = (0, 0, 10), b = 20, c = 75, discriminant = 100, t = -5 or -15
+    Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
+    Sphere sphere(Vector(0, 0, -11), 5, Colour(1, 0, 0));
+
+    REQUIRE_FALSE(sphere.isHitBy(ray));
+}
+
 TEST_CASE("A sphere keeps its colour", "[sphere]") {
     Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0.5, 0));
 

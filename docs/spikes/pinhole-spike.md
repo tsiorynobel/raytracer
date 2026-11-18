@@ -40,7 +40,7 @@ t = (-b ± sqrt(discriminant)) / 2a. A hit needs t > 0.
 
 - Colour is its own class, not a Vector: colours mix, clamp and convert to 0-255,
   directions do not.
-- [ ] **Bug:** a sphere behind the eye is reported as hit. The discriminant does not change
+- [x] **Bug (fixed, tested):** a sphere behind the eye is reported as hit. The discriminant does not change
   when b changes sign, and nothing checks t > 0.
 - Touching (discriminant = 0) counts as a hit, because of `>=`. Not decided yet.
 - `isHitBy` returns only a bool: it does not say at which t the ray hits.
