@@ -6,9 +6,11 @@ class Camera {
 private:
     Vector _eye;
     Vector _screenCentre;
+    double _screenWidth;
 
 public:
-    Camera(const Vector& eye, const Vector& screenCentre);
+    Camera(const Vector& eye, const Vector& screenCentre, double screenWidth);
 
     Ray rayThroughCentre() const;
+    Ray rayThroughPixel(int column, int row, int imageWidth, int imageHeight) const;
 };
