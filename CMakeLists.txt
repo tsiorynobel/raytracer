@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(Catch2)
 
 enable_testing()
 
-add_executable(tests tests/test_main.cpp tests/test_helpers.cpp tests/math/test_vector.cpp tests/colour/test_colour.cpp tests/geometry/test_ray.cpp tests/render/test_camera.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp)
+add_executable(tests tests/test_main.cpp tests/test_helpers.cpp tests/math/test_vector.cpp tests/colour/test_colour.cpp tests/geometry/test_ray.cpp tests/render/test_camera.cpp tests/geometry/test_sphere.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp)
 target_include_directories(tests PRIVATE src tests)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 
