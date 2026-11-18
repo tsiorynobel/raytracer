@@ -1,9 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
-#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include "geometry/sphere.h"
 #include "test_helpers.h"
-
-using Catch::Matchers::WithinAbs;
 
 // Expected values from L = O - C, a = D.D, b = 2 D.L, c = L.L - r^2,
 // discriminant = b^2 - 4ac, t = (-b +- sqrt(discriminant)) / 2a.
@@ -43,7 +40,5 @@ TEST_CASE("A sphere behind the eye is not hit", "[sphere]") {
 TEST_CASE("A sphere keeps its colour", "[sphere]") {
     Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0.5, 0));
 
-    REQUIRE_THAT(sphere.colour().r(), WithinAbs(1, tolerance));
-    REQUIRE_THAT(sphere.colour().g(), WithinAbs(0.5, tolerance));
-    REQUIRE_THAT(sphere.colour().b(), WithinAbs(0, tolerance));
+    requireColoursEqual(sphere.colour(), Colour(1, 0.5, 0));
 }
