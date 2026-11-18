@@ -27,8 +27,17 @@ The project runs in a dev container, so everyone has the same compiler and tools
 
 ```bash
 make run
-# Hello, Raytracer!
+# (1, 0, 0)
 ```
+
+The program traces one ray from a pinhole camera at (0, 0, -1) towards a red sphere and
+prints the colour of that pixel.
+
+## Documentation
+
+- [Domain model](docs/domain/domain-model.md)
+- [Architecture decisions](docs/adr/)
+- [Pinhole spike notes](docs/spikes/pinhole-spike.md)
 
 See [ADR 0004](docs/adr/0004-makefile.md) for why we use a Makefile.
 
