@@ -32,3 +32,11 @@ TEST_CASE("Subtracting two vectors also subtracts the z component", "[vector]") 
     REQUIRE(difference.y() == 4);
     REQUIRE(difference.z() == 4);
 }
+
+TEST_CASE("Scaling a vector multiplies each component", "[vector]") {
+    Vector scaled = 2.0 * Vector(3, -4, 1);
+
+    REQUIRE(scaled.x() == 6);
+    REQUIRE(scaled.y() == -8);
+    REQUIRE(scaled.z() == 2);
+}

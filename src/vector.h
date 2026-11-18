@@ -16,3 +16,5 @@ public:
     Vector operator+(const Vector& other) const;
     Vector operator-(const Vector& other) const;
 };
+
+Vector operator*(double t, const Vector& v);
