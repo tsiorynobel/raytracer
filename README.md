@@ -13,17 +13,18 @@ The project runs in a dev container, so everyone has the same compiler and tools
 2. Open this folder in VS Code and choose **Dev Containers: Reopen in Container**.
 3. In the container terminal:
 
+| Command | What it does |
+|---------|-------------|
+| `make build` | Configure and compile everything |
+| `make run` | Build, then run the ray tracer |
+| `make test` | Build, then run the tests |
+| `make clean` | Delete the `build/` folder |
+
 ```bash
-# Configure and build
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
-
-# Run
-./build/raytracer
+make run
 # Hello, Raytracer!
-
-# Test
-cd build && ctest --output-on-failure
 ```
+
+See [ADR 0004](docs/adr/0004-makefile.md) for why we use a Makefile.
 
 Catch2 is downloaded at the first configure, so it needs internet access.
