@@ -1,7 +1,7 @@
 #include <iostream>
-#include "camera.h"
-#include "colour.h"
-#include "sphere.h"
+#include "render/camera.h"
+#include "colour/colour.h"
+#include "geometry/sphere.h"
 
 int main() {
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0));

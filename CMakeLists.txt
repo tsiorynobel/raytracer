@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Main executable
-add_executable(raytracer src/main.cpp src/math/vector.cpp src/colour.cpp src/ray.cpp src/sphere.cpp src/camera.cpp)
+add_executable(raytracer src/main.cpp src/math/vector.cpp src/colour/colour.cpp src/geometry/ray.cpp src/geometry/sphere.cpp src/render/camera.cpp)
 target_include_directories(raytracer PRIVATE src)
 
 # Testing

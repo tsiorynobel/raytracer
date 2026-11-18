@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "render/camera.h"
 
 Camera::Camera(const Vector& eye, const Vector& screenCentre)
     : _eye(eye), _screenCentre(screenCentre) {}

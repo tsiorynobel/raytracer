@@ -1,4 +1,4 @@
-#include "colour.h"
+#include "colour/colour.h"
 
 Colour::Colour(double r, double g, double b) : _r(r), _g(g), _b(b) {}
 
