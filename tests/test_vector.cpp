@@ -16,3 +16,19 @@ TEST_CASE("Adding two vectors also adds the z component", "[vector]") {
     REQUIRE(sum.y() == 1);
     REQUIRE(sum.z() == 3);
 }
+
+TEST_CASE("Subtracting two vectors subtracts each component", "[vector]") {
+    Vector difference = Vector(4, 5, 0) - Vector(1, 1, 0);
+
+    REQUIRE(difference.x() == 3);
+    REQUIRE(difference.y() == 4);
+    REQUIRE(difference.z() == 0);
+}
+
+TEST_CASE("Subtracting two vectors also subtracts the z component", "[vector]") {
+    Vector difference = Vector(4, 5, 6) - Vector(1, 1, 2);
+
+    REQUIRE(difference.x() == 3);
+    REQUIRE(difference.y() == 4);
+    REQUIRE(difference.z() == 4);
+}

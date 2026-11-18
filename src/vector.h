@@ -14,4 +14,5 @@ public:
     double z() const;
 
     Vector operator+(const Vector& other) const;
+    Vector operator-(const Vector& other) const;
 };
