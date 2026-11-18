@@ -40,3 +40,15 @@ TEST_CASE("Scaling a vector multiplies each component", "[vector]") {
     REQUIRE(scaled.y() == -8);
     REQUIRE(scaled.z() == 2);
 }
+
+TEST_CASE("The ray equation O + t * D gives the point at t", "[vector]") {
+    Vector O(0, 8, 0);
+    Vector D(3, -4, 0);
+    double t = 2.0;
+
+    Vector point = O + t * D;
+
+    REQUIRE(point.x() == 6);
+    REQUIRE(point.y() == 0);
+    REQUIRE(point.z() == 0);
+}
