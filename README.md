@@ -30,8 +30,10 @@ make run
 # image.png
 ```
 
-The program traces one ray per pixel from a pinhole camera at (0, 0, -1) towards a red
-sphere and saves a 400 x 300 picture as `image.png` in the project folder (not committed).
+The program traces one ray per pixel from a pinhole camera at (0, 0, -1) into a scene:
+a yellow ball on a grey floor, lit by the sun from the top left (Lambert shading, no
+shadows yet). It saves a 400 x 300 picture as `image.png` in the project folder (not
+committed).
 
 ## Documentation
 
