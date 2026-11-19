@@ -2,24 +2,6 @@
 #include "render/camera.h"
 #include "test_helpers.h"
 
-TEST_CASE("The ray through the centre goes from the eye to the screen centre", "[camera]") {
-    Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2.0);
-
-    Ray ray = camera.rayThroughCentre();
-
-    requireVectorsEqual(ray.origin(), Vector(0, 0, -1));
-    requireVectorsEqual(ray.direction(), Vector(0, 0, 1));
-}
-
-TEST_CASE("The ray through the centre follows the camera when it moves", "[camera]") {
-    Camera camera(Vector(1, 2, -1), Vector(4, 6, -1), 2.0);
-
-    Ray ray = camera.rayThroughCentre();
-
-    requireVectorsEqual(ray.origin(), Vector(1, 2, -1));
-    requireVectorsEqual(ray.direction(), Vector(3, 4, 0));
-}
-
 // Screen 5 wide for a 5 x 3 image: one pixel is 1 x 1.
 // Pixel (column, row) is at x = column + 0.5 - 2.5, y = -(row + 0.5 - 1.5).
 

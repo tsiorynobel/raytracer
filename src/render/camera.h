@@ -13,7 +13,6 @@ private:
 public:
     Camera(const Vector& eye, const Vector& screenCentre, double screenWidth);
 
-    Ray rayThroughCentre() const;
     Ray rayThroughPixel(int column, int row, int imageWidth, int imageHeight) const;
 
     void render(const Sphere& sphere, Image& image) const;
