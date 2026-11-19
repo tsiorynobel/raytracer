@@ -12,4 +12,8 @@ public:
     double r() const;
     double g() const;
     double b() const;
+
+    Colour operator*(double t) const;
+    // Part by part: how a light of one colour shows a surface of another.
+    Colour operator*(const Colour& other) const;
 };
