@@ -1,7 +1,7 @@
 #pragma once
 #include "math/vector.h"
 #include "geometry/ray.h"
-#include "geometry/sphere.h"
+#include "scene/scene.h"
 #include "image/image.h"
 
 class Camera {
@@ -15,5 +15,5 @@ public:
 
     Ray rayThroughPixel(int column, int row, int imageWidth, int imageHeight) const;
 
-    Image render(const Sphere& sphere, const Vector& toLight, int width, int height) const;
+    Image render(const Scene& scene, int width, int height) const;
 };

@@ -1,5 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
+#include <memory>
 #include "render/camera.h"
+#include "geometry/sphere.h"
 #include "material/flat_shader.h"
 #include "material/lambert_shader.h"
 #include "test_helpers.h"
@@ -60,9 +62,10 @@ TEST_CASE("Pixels are placed around the screen centre", "[camera]") {
 TEST_CASE("Rendering lights the plus: full in the centre, 0.8 around", "[camera]") {
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 5.0);
     const LambertShader red(Colour(1, 0, 0));
-    Sphere sphere(Vector(0, 0, 6), 5, red);
+    Scene scene(Vector(0, 0, -1));
+    scene.add(std::make_unique<Sphere>(Vector(0, 0, 6), 5, red));
 
-    Image image = camera.render(sphere, Vector(0, 0, -1), 5, 3);
+    Image image = camera.render(scene, 5, 3);
 
     REQUIRE(image.width() == 5);
     REQUIRE(image.height() == 3);
@@ -82,9 +85,10 @@ TEST_CASE("Rendering fills every pixel, up to the last row and column", "[camera
     // Both roots positive: every pixel hits.
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 3.0);
     const FlatShader red(Colour(1, 0, 0));
-    Sphere sphere(Vector(0, 0, 9), 9, red);
+    Scene scene(Vector(0, 0, -1));
+    scene.add(std::make_unique<Sphere>(Vector(0, 0, 9), 9, red));
 
-    Image image = camera.render(sphere, Vector(0, 0, -1), 3, 3);
+    Image image = camera.render(scene, 3, 3);
 
     for (int row = 0; row < 3; ++row) {
         for (int column = 0; column < 3; ++column) {

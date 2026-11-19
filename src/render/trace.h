@@ -1,7 +1,7 @@
 #pragma once
 #include "colour/colour.h"
 #include "geometry/ray.h"
-#include "geometry/sphere.h"
+#include "scene/scene.h"
 
-// toLight: the unit direction to the sun.
-Colour trace(const Ray& ray, const Sphere& sphere, const Vector& toLight);
+// The colour seen along a ray: the nearest hit's material lit by the sun, or black.
+Colour trace(const Ray& ray, const Scene& scene);
