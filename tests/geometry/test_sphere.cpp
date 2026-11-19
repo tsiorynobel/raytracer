@@ -1,7 +1,10 @@
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include "geometry/sphere.h"
 #include "material/flat_shader.h"
 #include "test_helpers.h"
+
+using Catch::Matchers::WithinAbs;
 
 namespace {
 const FlatShader red(Colour(1, 0, 0));
@@ -17,9 +20,10 @@ TEST_CASE("A ray through the centre of the sphere hits its near side", "[sphere]
     Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
     Sphere sphere(Vector(0, 0, 9), 5, red);
 
-    std::optional<HitInfo> hit = sphere.hit(ray);
+    std::optional<Hit> hit = sphere.hit(ray);
 
     REQUIRE(hit.has_value());
+    REQUIRE_THAT(hit->t, WithinAbs(5, tolerance));
     requireVectorsEqual(hit->point, Vector(0, 0, 4));
     requireVectorsEqual(hit->normal, Vector(0, 0, -1));
 }
@@ -30,9 +34,10 @@ TEST_CASE("A ray through the side of the sphere gets the normal there", "[sphere
     Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
     Sphere sphere(Vector(3, 0, 9), 5, red);
 
-    std::optional<HitInfo> hit = sphere.hit(ray);
+    std::optional<Hit> hit = sphere.hit(ray);
 
     REQUIRE(hit.has_value());
+    REQUIRE_THAT(hit->t, WithinAbs(6, tolerance));
     requireVectorsEqual(hit->point, Vector(0, 0, 5));
     requireVectorsEqual(hit->normal, Vector(-0.6, 0, -0.8));
 }
@@ -43,23 +48,25 @@ TEST_CASE("A ray that is not a unit vector hits the same point", "[sphere]") {
     Ray ray(Vector(0, 0, -1), Vector(0, 0, 2));
     Sphere sphere(Vector(0, 0, 9), 5, red);
 
-    std::optional<HitInfo> hit = sphere.hit(ray);
+    std::optional<Hit> hit = sphere.hit(ray);
 
     REQUIRE(hit.has_value());
+    REQUIRE_THAT(hit->t, WithinAbs(2.5, tolerance));
     requireVectorsEqual(hit->point, Vector(0, 0, 4));
     requireVectorsEqual(hit->normal, Vector(0, 0, -1));
 }
 
 TEST_CASE("A ray from inside the sphere hits its far side", "[sphere]") {
-    // L = (0, 0, 0), b = 0, c = -25, discriminant = 100, t = -5 or 5
-    // point = (0, 0, 9) + 5 (0, 0, 1) = (0, 0, 14), normal = (0, 0, 5) / 5
-    Ray ray(Vector(0, 0, 9), Vector(0, 0, 1));
-    Sphere sphere(Vector(0, 0, 9), 5, red);
+    // Centre (0, 0, 1): L = (0, 0, -2), b = -4, c = -21, discriminant = 100, t = -3 or 7.
+    // -3 is behind the eye; point = (0, 0, -1) + 7 (0, 0, 1) = (0, 0, 6), normal = (0, 0, 5) / 5
+    Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
+    Sphere sphere(Vector(0, 0, 1), 5, red);
 
-    std::optional<HitInfo> hit = sphere.hit(ray);
+    std::optional<Hit> hit = sphere.hit(ray);
 
     REQUIRE(hit.has_value());
-    requireVectorsEqual(hit->point, Vector(0, 0, 14));
+    REQUIRE_THAT(hit->t, WithinAbs(7, tolerance));
+    requireVectorsEqual(hit->point, Vector(0, 0, 6));
     requireVectorsEqual(hit->normal, Vector(0, 0, 1));
 }
 
@@ -91,7 +98,7 @@ TEST_CASE("A hit carries the material of the sphere", "[sphere]") {
     Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
     Sphere sphere(Vector(0, 0, 9), 5, orange);
 
-    std::optional<HitInfo> hit = sphere.hit(ray);
+    std::optional<Hit> hit = sphere.hit(ray);
 
     REQUIRE(hit.has_value());
     REQUIRE(&hit->material == &orange);

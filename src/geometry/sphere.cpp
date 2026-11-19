@@ -6,7 +6,7 @@ Sphere::Sphere(const Vector& centre, double radius, const Material& material)
 
 const Material& Sphere::material() const { return _material; }
 
-std::optional<HitInfo> Sphere::hit(const Ray& ray) const {
+std::optional<Hit> Sphere::hit(const Ray& ray) const {
     Vector D = ray.direction();
     Vector L = ray.origin() - _centre;
 
@@ -29,6 +29,6 @@ std::optional<HitInfo> Sphere::hit(const Ray& ray) const {
     }
 
     Vector point = ray.at(t);
-    Vector normal = (point - _centre).normalised();
-    return HitInfo{point, normal, _material};
+    Vector normal = (1.0 / _radius) * (point - _centre);
+    return Hit{t, point, normal, _material};
 }

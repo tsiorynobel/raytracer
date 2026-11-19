@@ -2,7 +2,7 @@
 #include <optional>
 #include "math/vector.h"
 #include "geometry/ray.h"
-#include "geometry/hit_info.h"
+#include "geometry/hit.h"
 #include "material/material.h"
 
 class Sphere {
@@ -19,5 +19,5 @@ public:
 
     const Material& material() const;
     // The nearest point in front of the ray origin (t > 0), or nothing on a miss.
-    std::optional<HitInfo> hit(const Ray& ray) const;
+    std::optional<Hit> hit(const Ray& ray) const;
 };
