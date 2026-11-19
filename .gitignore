@@ -6,3 +6,4 @@ build/
 # Render outputs written to the project root
 /*.png
 /*.ppm
+image.png

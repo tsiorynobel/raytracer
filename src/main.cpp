@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "render/camera.h"
 #include "colour/colour.h"
 #include "geometry/sphere.h"
@@ -7,22 +8,19 @@
 
 int main() {
     // Position and configure the camera
-    Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2.0);
+    Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
 
     // Describe the scene
     Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
 
-    // Size of the image
-    const int imageWidth = 512;
-    const int imageHeight = 512;
-
     // Render the scene into an image
-    Image image = camera.render(sphere, imageWidth, imageHeight);
+    Image image = camera.render(sphere, 400, 300);
 
     // Save the rendered image to a file
+    std::string path = "image.png";
     PngSaver saver;
-    saver.save(image, "output.png");
-    std::cout << "Saved output.png (" << imageWidth << " x " << imageHeight << ")\n";
+    saver.save(image, path);
+    std::cout << path << "\n";
 
     return 0;
 }
