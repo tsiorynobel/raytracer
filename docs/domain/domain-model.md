@@ -27,7 +27,7 @@ classDiagram
         eye
         screenCentre
         screenWidth
-        render(sphere, width, height) Image
+        render(sphere, light, width, height) Image
     }
     class Image {
         width
@@ -41,7 +41,7 @@ classDiagram
     }
     class Material {
         <<interface>>
-        shade(ray) Colour
+        shade(hit, light) Colour
     }
     class FlatShader {
         colour
@@ -79,9 +79,10 @@ classDiagram
 - **Is a colour a vector?** No, see [ADR 0007](../adr/0007-colour-is-its-own-class.md).
 - **Are a point and a direction the same class?** For now yes: both are a `Vector`.
   Revisit if mixing them up causes bugs.
-- **Who decides the colour of a pixel?** The free function `trace(ray, sphere)` in
+- **Who decides the colour of a pixel?** The free function `trace(ray, sphere, light)` in
   `src/render/trace.h` asks the sphere for a hit; the hit's `Material` gives the colour
-  (`shade(ray)`); a miss is black. `FlatShader` gives one colour, whatever the ray.
+  from the hit and the light (`shade(hit, light)`); a miss is black. `FlatShader` gives
+  one colour, whatever the hit and the light.
 - **What does a hit tell?** `Sphere::hit` gives a `HitInfo`: the point, the unit normal
   there and the material, or nothing on a miss. The hit is the nearest `t > 0`: a ray
   from inside the sphere hits its far side, and a ray starting exactly on the surface
@@ -96,16 +97,15 @@ classDiagram
 - A `Sphere` refers to its material: the material must outlive the sphere. Passing a
   temporary material does not compile.
 - `geometry/` and `material/` depend on each other (`Sphere` holds a `Material`, and
-  `Material::shade` takes a `Ray`, `HitInfo` carries a `Material`). Revisit when
-  `shade` takes the hit point and normal.
+  `Material::shade` takes a `HitInfo`, `HitInfo` carries a `Material`). `material.h`
+  only declares `HitInfo` and `Light`, so the headers do not include each other.
 - `Image` does not check pixel bounds: an out-of-range column or row is undefined behaviour.
 - Colours outside 0..1 do not fit in a byte when saved.
 - `render` takes one concrete `Sphere`.
 - `main` does not catch the saver's exception.
-- A `Light` is a point light (a position and a colour). Nothing uses it yet: the scene
-  is still lit by nothing, until the shading chapter.
+- A `Light` is a point light (a position and a colour). The scene has exactly one.
 
 ## Folder dependencies
 
-`render/` → `geometry/` → `math/`, `material/` → `colour/`, `render/` → `image/` ← `output/`, `light/` → `math/`, `colour/`.
+`render/` → `geometry/` → `math/`, `material/` → `colour/`, `render/` → `image/` ← `output/`, `light/` → `math/`, `colour/`, `material/` → `light/`.
 One cycle, parked above: `geometry/` ↔ `material/`.

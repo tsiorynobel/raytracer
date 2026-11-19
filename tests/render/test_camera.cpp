@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include "render/camera.h"
 #include "material/flat_shader.h"
+#include "light/light.h"
 #include "test_helpers.h"
 
 // Screen 5 wide for a 5 x 3 image: one pixel is 1 x 1.
@@ -59,7 +60,9 @@ TEST_CASE("Rendering draws the pixels whose ray hits the sphere", "[camera]") {
     const FlatShader red(Colour(1, 0, 0));
     Sphere sphere(Vector(0, 0, 6), 5, red);
 
-    Image image = camera.render(sphere, 5, 3);
+    Light light(Vector(0, 10, 0), Colour(1, 1, 1));
+
+    Image image = camera.render(sphere, light, 5, 3);
 
     REQUIRE(image.width() == 5);
     REQUIRE(image.height() == 3);
@@ -80,7 +83,9 @@ TEST_CASE("Rendering fills every pixel, up to the last row and column", "[camera
     const FlatShader red(Colour(1, 0, 0));
     Sphere sphere(Vector(0, 0, 9), 9, red);
 
-    Image image = camera.render(sphere, 3, 3);
+    Light light(Vector(0, 10, 0), Colour(1, 1, 1));
+
+    Image image = camera.render(sphere, light, 3, 3);
 
     for (int row = 0; row < 3; ++row) {
         for (int column = 0; column < 3; ++column) {

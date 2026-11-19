@@ -3,6 +3,7 @@
 #include "geometry/ray.h"
 #include "geometry/sphere.h"
 #include "image/image.h"
+#include "light/light.h"
 
 class Camera {
 private:
@@ -15,5 +16,5 @@ public:
 
     Ray rayThroughPixel(int column, int row, int imageWidth, int imageHeight) const;
 
-    Image render(const Sphere& sphere, int width, int height) const;
+    Image render(const Sphere& sphere, const Light& light, int width, int height) const;
 };
