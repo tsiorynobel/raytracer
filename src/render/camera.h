@@ -15,5 +15,5 @@ public:
 
     Ray rayThroughPixel(int column, int row, int imageWidth, int imageHeight) const;
 
-    void render(const Sphere& sphere, Image& image) const;
+    Image render(const Sphere& sphere, int width, int height) const;
 };

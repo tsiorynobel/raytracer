@@ -12,13 +12,12 @@ int main() {
     // Describe the scene
     Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
 
-    // Image to render into
+    // Size of the image
     const int imageWidth = 512;
     const int imageHeight = 512;
-    Image image(imageWidth, imageHeight);
 
-    // Render the scene into the image
-    camera.render(sphere, image);
+    // Render the scene into an image
+    Image image = camera.render(sphere, imageWidth, imageHeight);
 
     // Save the rendered image to a file
     PngSaver saver;
