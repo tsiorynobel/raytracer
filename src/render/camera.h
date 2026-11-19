@@ -2,7 +2,7 @@
 #include "math/vector.h"
 #include "geometry/ray.h"
 #include "geometry/sphere.h"
-#include "render/image.h"
+#include "image/image.h"
 
 class Camera {
 private:

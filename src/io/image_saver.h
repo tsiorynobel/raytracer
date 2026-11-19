@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "render/image.h"
+#include "image/image.h"
 
 class ImageSaver {
 public:

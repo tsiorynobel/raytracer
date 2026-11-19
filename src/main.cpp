@@ -2,7 +2,7 @@
 #include "render/camera.h"
 #include "colour/colour.h"
 #include "geometry/sphere.h"
-#include "render/image.h"
+#include "image/image.h"
 #include "io/png_saver.h"
 
 int main() {

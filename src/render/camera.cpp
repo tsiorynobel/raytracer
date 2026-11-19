@@ -16,8 +16,8 @@ Ray Camera::rayThroughPixel(int column, int row, int imageWidth, int imageHeight
 }
 
 void Camera::render(const Sphere& sphere, Image& image) const {
-    int width = static_cast<int>(image.width());
-    int height = static_cast<int>(image.height());
+    int width = image.width();
+    int height = image.height();
 
     for (int row = 0; row < height; ++row) {
         for (int column = 0; column < width; ++column) {

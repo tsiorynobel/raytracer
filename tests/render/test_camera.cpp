@@ -76,8 +76,8 @@ TEST_CASE("Rendering fills every pixel, up to the last row and column", "[camera
 
     camera.render(sphere, image);
 
-    for (unsigned int row = 0; row < 3; ++row) {
-        for (unsigned int column = 0; column < 3; ++column) {
+    for (int row = 0; row < 3; ++row) {
+        for (int column = 0; column < 3; ++column) {
             requireColoursEqual(image.pixel(column, row), Colour(1, 0, 0));
         }
     }
