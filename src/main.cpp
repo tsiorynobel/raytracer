@@ -5,13 +5,15 @@
 #include "geometry/sphere.h"
 #include "image/image.h"
 #include "output/png_saver.h"
+#include "material/flat_shader.h"
 
 int main() {
     // Position and configure the camera
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
 
     // Describe the scene
-    Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
+    FlatShader yellow(Colour(1, 1, 0));
+    Sphere sphere(Vector(0, 0, 9), 5, yellow);
 
     // Render the scene into an image
     Image image = camera.render(sphere, 400, 300);

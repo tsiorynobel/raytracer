@@ -34,6 +34,13 @@ classDiagram
         g
         b
     }
+    class Material {
+        <<interface>>
+        shade(ray) Colour
+    }
+    class FlatShader {
+        colour
+    }
     class ImageSaver {
         <<interface>>
         save(image, path)
@@ -42,7 +49,9 @@ classDiagram
 
     Ray --> "2" Vector : origin, direction
     Sphere --> Vector : centre
-    Sphere --> Colour : colour
+    Sphere --> Material : material
+    Material <|.. FlatShader
+    FlatShader --> Colour : colour
     Camera --> "2" Vector : eye, screen centre
     Camera ..> Ray : one per pixel
     Camera ..> Image : renders
@@ -57,7 +66,8 @@ classDiagram
 - **Are a point and a direction the same class?** For now yes: both are a `Vector`.
   Revisit if mixing them up causes bugs.
 - **Who decides the colour of a pixel?** The free function `trace(ray, sphere)` in
-  `src/render/trace.h`: the sphere's colour on a hit, black otherwise.
+  `src/render/trace.h` finds the hit; the sphere's `Material` gives the colour
+  (`shade(ray)`); a miss is black. `FlatShader` gives one colour, whatever the ray.
 - **Who makes the picture?** The camera renders the scene into an `Image`; it does not
   save itself: a saver saves it. `PngSaver` is the only saver today, behind the
   `ImageSaver` interface ([ADR 0008](../adr/0008-lodepng-for-png-output.md)).
@@ -65,6 +75,10 @@ classDiagram
 
 ## Parked
 
+- A `Sphere` refers to its material: the material must outlive the sphere. Passing a
+  temporary material does not compile.
+- `geometry/` and `material/` depend on each other (`Sphere` holds a `Material`, and
+  `Material::shade` takes a `Ray`). Revisit when shading needs the hit point and normal.
 - `Image` does not check pixel bounds: an out-of-range column or row is undefined behaviour.
 - Colours outside 0..1 do not fit in a byte when saved.
 - `render` takes one concrete `Sphere`.
@@ -72,5 +86,5 @@ classDiagram
 
 ## Folder dependencies
 
-`render/` → `geometry/` → `math/`, `geometry/` → `colour/`, `render/` → `image/` ← `output/`.
-No cycles.
+`render/` → `geometry/` → `math/`, `material/` → `colour/`, `render/` → `image/` ← `output/`.
+One cycle, parked above: `geometry/` ↔ `material/`.
