@@ -5,7 +5,7 @@
 #include "geometry/sphere.h"
 #include "image/image.h"
 #include "output/png_saver.h"
-#include "material/flat_shader.h"
+#include "material/lambert_shader.h"
 #include "light/light.h"
 
 int main() {
@@ -13,7 +13,7 @@ int main() {
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
 
     // Describe the scene
-    FlatShader yellow(Colour(1, 1, 0));
+    LambertShader yellow(Colour(1, 1, 0));
     Sphere sphere(Vector(0, 0, 9), 5, yellow);
     Light light(Vector(-10, 10, -5), Colour(1, 1, 1));
 
