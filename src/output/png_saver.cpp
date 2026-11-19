@@ -1,25 +1,27 @@
 #include "output/png_saver.h"
 #include "lodepng.h"
+#include <cmath>
 #include <stdexcept>
+#include <vector>
 
-void PngSaver::save(Image& image, const std::string& path) {
-    const unsigned int width = image.width();
-    const unsigned int height = image.height();
+static unsigned char toByte(double value) {
+    return static_cast<unsigned char>(std::lround(value * 255));
+}
 
-    std::vector<unsigned char> pixels;
-    pixels.reserve(width * height * 4);
+void PngSaver::save(const Image& image, const std::string& path) const {
+    std::vector<unsigned char> bytes;
+    bytes.reserve(image.width() * image.height() * 3);
 
-    for (unsigned int y = 0; y < height; ++y) {
-        for (unsigned int x = 0; x < width; ++x) {
-            Colour c = image.pixel(x, y);
-            pixels.push_back(static_cast<unsigned char>(c.r() * 255));
-            pixels.push_back(static_cast<unsigned char>(c.g() * 255));
-            pixels.push_back(static_cast<unsigned char>(c.b() * 255));
-            pixels.push_back(255);
+    for (int row = 0; row < image.height(); ++row) {
+        for (int column = 0; column < image.width(); ++column) {
+            Colour colour = image.pixel(column, row);
+            bytes.push_back(toByte(colour.r()));
+            bytes.push_back(toByte(colour.g()));
+            bytes.push_back(toByte(colour.b()));
         }
     }
 
-    unsigned int error = lodepng::encode(path, pixels, width, height);
+    unsigned int error = lodepng::encode(path, bytes, image.width(), image.height(), LCT_RGB);
     if (error) {
         throw std::runtime_error(lodepng_error_text(error));
     }
