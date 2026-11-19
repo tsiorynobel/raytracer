@@ -11,4 +11,6 @@ public:
 
     const Vector& origin() const;
     const Vector& direction() const;
+    // The point origin + t * direction.
+    Vector at(double t) const;
 };
