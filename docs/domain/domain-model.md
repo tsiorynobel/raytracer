@@ -46,6 +46,9 @@ classDiagram
     class FlatShader {
         colour
     }
+    class LambertShader {
+        colour
+    }
     class ImageSaver {
         <<interface>>
         save(image, path)
@@ -64,6 +67,8 @@ classDiagram
     HitInfo --> Material : material
     Material <|.. FlatShader
     FlatShader --> Colour : colour
+    Material <|.. LambertShader
+    LambertShader --> Colour : colour
     Camera --> "2" Vector : eye, screen centre
     Camera ..> Ray : one per pixel
     Camera ..> Image : renders
@@ -82,7 +87,8 @@ classDiagram
 - **Who decides the colour of a pixel?** The free function `trace(ray, sphere, light)` in
   `src/render/trace.h` asks the sphere for a hit; the hit's `Material` gives the colour
   from the hit and the light (`shade(hit, light)`); a miss is black. `FlatShader` gives
-  one colour, whatever the hit and the light.
+  one colour, whatever the hit and the light. `LambertShader` gives
+  colour x light colour x max(0, normal . direction to the light): a matte surface.
 - **What does a hit tell?** `Sphere::hit` gives a `HitInfo`: the point, the unit normal
   there and the material, or nothing on a miss. The hit is the nearest `t > 0`: a ray
   from inside the sphere hits its far side, and a ray starting exactly on the surface
