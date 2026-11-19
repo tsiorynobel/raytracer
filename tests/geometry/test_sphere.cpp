@@ -103,3 +103,14 @@ TEST_CASE("A hit carries the material of the sphere", "[sphere]") {
     REQUIRE(hit.has_value());
     REQUIRE(&hit->material == &orange);
 }
+
+TEST_CASE("A sphere can be used as any shape", "[sphere]") {
+    Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
+    Sphere sphere(Vector(0, 0, 9), 5, red);
+    const Shape& shape = sphere;
+
+    std::optional<Hit> hit = shape.hit(ray);
+
+    REQUIRE(hit.has_value());
+    REQUIRE_THAT(hit->t, WithinAbs(5, tolerance));
+}
