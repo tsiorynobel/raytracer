@@ -66,3 +66,37 @@ TEST_CASE("Pixels are placed around the screen centre", "[camera]") {
 
     requireVectorsEqual(ray.direction(), Vector(2, 1, 2));
 }
+
+// Screen 3 wide for a 3 x 3 image: one pixel is 1 x 1, red sphere at (0, 0, 9), radius 5.
+// Middle pixel: D = (0, 0, 1), it hits. Corner (0, 0): D = (-1, 1, 1),
+// L = (0, 0, -10), a = 3, b = -20, c = 75, discriminant = 400 - 900 = -500, it misses.
+
+TEST_CASE("Rendering colours each pixel with what its ray sees", "[camera]") {
+    Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 3.0);
+    Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
+    Image image(3, 3);
+
+    camera.render(sphere, image);
+
+    requireColoursEqual(image.pixel(1, 1), Colour(1, 0, 0));
+    requireColoursEqual(image.pixel(0, 0), Colour(0, 0, 0));
+    requireColoursEqual(image.pixel(2, 0), Colour(0, 0, 0));
+    requireColoursEqual(image.pixel(0, 2), Colour(0, 0, 0));
+    requireColoursEqual(image.pixel(2, 2), Colour(0, 0, 0));
+}
+
+TEST_CASE("Rendering fills every pixel, up to the last row and column", "[camera]") {
+    // Radius 9: c = 100 - 81 = 19. Corner: a = 3, discriminant = 400 - 228 = 172.
+    // Edge: a = 2, discriminant = 400 - 152 = 248. Both roots positive: every pixel hits.
+    Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 3.0);
+    Sphere sphere(Vector(0, 0, 9), 9, Colour(1, 0, 0));
+    Image image(3, 3);
+
+    camera.render(sphere, image);
+
+    for (unsigned int row = 0; row < 3; ++row) {
+        for (unsigned int column = 0; column < 3; ++column) {
+            requireColoursEqual(image.pixel(column, row), Colour(1, 0, 0));
+        }
+    }
+}

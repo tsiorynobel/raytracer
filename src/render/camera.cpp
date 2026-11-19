@@ -1,4 +1,5 @@
 #include "render/camera.h"
+#include "render/trace.h"
 
 Camera::Camera(const Vector& eye, const Vector& screenCentre, double screenWidth)
     : _eye(eye), _screenCentre(screenCentre), _screenWidth(screenWidth) {}
@@ -16,4 +17,16 @@ Ray Camera::rayThroughPixel(int column, int row, int imageWidth, int imageHeight
 
     Vector pixel = _screenCentre + Vector(x, y, 0);
     return Ray(_eye, pixel - _eye);
+}
+
+void Camera::render(const Sphere& sphere, Image& image) const {
+    int width = static_cast<int>(image.width());
+    int height = static_cast<int>(image.height());
+
+    for (int row = 0; row < height; ++row) {
+        for (int column = 0; column < width; ++column) {
+            Ray ray = rayThroughPixel(column, row, width, height);
+            image.setPixel(column, row, trace(ray, sphere));
+        }
+    }
 }
