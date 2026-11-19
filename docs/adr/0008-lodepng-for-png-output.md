@@ -23,7 +23,7 @@ Alternatives considered:
 
 Use LodePNG, fetched with CMake `FetchContent` at a fixed commit
 (`7b2893e35891c0c85bee5595caafaf3c2044b409`) and built as a small static library
-`lodepng_lib`. Only `src/io/png_saver.cpp` includes it: the rest of the code
+`lodepng_lib`. Only `src/output/png_saver.cpp` includes it: the rest of the code
 talks to the `ImageSaver` interface, so another format can be added without
 touching the renderer.
 

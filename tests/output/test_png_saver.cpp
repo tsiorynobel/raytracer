@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <vector>
-#include "io/png_saver.h"
+#include "output/png_saver.h"
 #include "lodepng.h"
 
 TEST_CASE("A saved PNG holds each pixel as red, green, blue and full alpha", "[png]") {

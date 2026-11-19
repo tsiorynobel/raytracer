@@ -1,4 +1,4 @@
-#include "io/png_saver.h"
+#include "output/png_saver.h"
 #include "lodepng.h"
 #include <stdexcept>
 

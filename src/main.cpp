@@ -3,7 +3,7 @@
 #include "colour/colour.h"
 #include "geometry/sphere.h"
 #include "image/image.h"
-#include "io/png_saver.h"
+#include "output/png_saver.h"
 
 int main() {
     // Position and configure the camera
