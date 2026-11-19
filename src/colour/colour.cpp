@@ -6,10 +6,6 @@ double Colour::r() const { return _r; }
 double Colour::g() const { return _g; }
 double Colour::b() const { return _b; }
 
-Colour Colour::operator*(double t) const {
-    return Colour(_r * t, _g * t, _b * t);
-}
-
-Colour Colour::operator*(const Colour& other) const {
-    return Colour(_r * other._r, _g * other._g, _b * other._b);
+Colour operator*(double t, const Colour& colour) {
+    return Colour(t * colour.r(), t * colour.g(), t * colour.b());
 }

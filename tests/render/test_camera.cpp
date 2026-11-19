@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include "render/camera.h"
 #include "material/flat_shader.h"
-#include "light/light.h"
+#include "material/lambert_shader.h"
 #include "test_helpers.h"
 
 // Screen 5 wide for a 5 x 3 image: one pixel is 1 x 1.
@@ -51,25 +51,26 @@ TEST_CASE("Pixels are placed around the screen centre", "[camera]") {
     requireVectorsEqual(ray.direction(), Vector(2, 1, 2));
 }
 
-// Screen 5 wide for a 5 x 3 image, red sphere at (0, 0, 6), radius 5.
+// Screen 5 wide for a 5 x 3 image, red Lambert sphere at (0, 0, 6), radius 5.
 // L = (0, 0, -7), b = -14, c = 24, discriminant = 196 - 96a: a hit only when a <= 2.
-// a = 1 + x^2 + y^2, so the hits are the centre and its four neighbours: a red plus.
+// a = 1 + x^2 + y^2, so the hits are the centre and its four neighbours: a plus.
+// Sun L = (0, 0, -1). Centre: P = (0, 0, 1), N = (0, 0, -1), N . L = 1.
+// Right: P = (3, 0, 2), N = (0.6, 0, -0.8), N . L = 0.8; the same for the other three.
 
-TEST_CASE("Rendering draws the pixels whose ray hits the sphere", "[camera]") {
+TEST_CASE("Rendering lights the plus: full in the centre, 0.8 around", "[camera]") {
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 5.0);
-    const FlatShader red(Colour(1, 0, 0));
+    const LambertShader red(Colour(1, 0, 0));
     Sphere sphere(Vector(0, 0, 6), 5, red);
 
-    Light light(Vector(0, 10, 0), Colour(1, 1, 1));
-
-    Image image = camera.render(sphere, light, 5, 3);
+    Image image = camera.render(sphere, Vector(0, 0, -1), 5, 3);
 
     REQUIRE(image.width() == 5);
     REQUIRE(image.height() == 3);
     for (int row = 0; row < 3; ++row) {
         for (int column = 0; column < 5; ++column) {
-            bool inPlus = (column == 2 && row != 1) || (row == 1 && column >= 1 && column <= 3);
-            Colour expected = inPlus ? Colour(1, 0, 0) : Colour(0, 0, 0);
+            bool centre = column == 2 && row == 1;
+            bool neighbour = (column == 2 && row != 1) || (row == 1 && (column == 1 || column == 3));
+            Colour expected = centre ? Colour(1, 0, 0) : neighbour ? Colour(0.8, 0, 0) : Colour(0, 0, 0);
             requireColoursEqual(image.pixel(column, row), expected);
         }
     }
@@ -83,9 +84,7 @@ TEST_CASE("Rendering fills every pixel, up to the last row and column", "[camera
     const FlatShader red(Colour(1, 0, 0));
     Sphere sphere(Vector(0, 0, 9), 9, red);
 
-    Light light(Vector(0, 10, 0), Colour(1, 1, 1));
-
-    Image image = camera.render(sphere, light, 3, 3);
+    Image image = camera.render(sphere, Vector(0, 0, -1), 3, 3);
 
     for (int row = 0; row < 3; ++row) {
         for (int column = 0; column < 3; ++column) {

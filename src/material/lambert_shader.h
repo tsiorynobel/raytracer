@@ -11,5 +11,5 @@ private:
 public:
     explicit LambertShader(const Colour& colour);
 
-    Colour shade(const HitInfo& hit, const Light& light) const override;
+    Colour shade(const Vector& normal, const Vector& toLight) const override;
 };

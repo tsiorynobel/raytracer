@@ -1,13 +1,10 @@
 #include "material/lambert_shader.h"
 #include <algorithm>
-#include "geometry/hit_info.h"
-#include "light/light.h"
 
 LambertShader::LambertShader(const Colour& colour) : _colour(colour) {}
 
-Colour LambertShader::shade(const HitInfo& hit, const Light& light) const {
-    Vector toLight = (light.position() - hit.point).normalised();
+Colour LambertShader::shade(const Vector& normal, const Vector& toLight) const {
     // Facing away from the light gives a negative cosine: no light, not less than none.
-    double intensity = std::max(0.0, hit.normal.dot(toLight));
-    return _colour * light.colour() * intensity;
+    double brightness = std::max(0.0, normal.dot(toLight));
+    return brightness * _colour;
 }

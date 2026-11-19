@@ -1,14 +1,15 @@
 #pragma once
 
 #include "colour/colour.h"
+#include "math/vector.h"
 
-// Declared, not included: a HitInfo refers to its Material.
-struct HitInfo;
-class Light;
-
-// How a surface looks: the colour seen where a ray hits it, under a light.
+// How a surface takes light. A strategy: each way of shading is its own class
+// (FlatShader, LambertShader), and a shape only knows it has a Material.
 class Material {
 public:
     virtual ~Material() = default;
-    virtual Colour shade(const HitInfo& hit, const Light& light) const = 0;
+
+    // The colour seen for a surface normal and the direction to the light.
+    // normal and toLight must be unit vectors.
+    virtual Colour shade(const Vector& normal, const Vector& toLight) const = 0;
 };

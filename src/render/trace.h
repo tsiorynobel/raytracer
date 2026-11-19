@@ -2,6 +2,6 @@
 #include "colour/colour.h"
 #include "geometry/ray.h"
 #include "geometry/sphere.h"
-#include "light/light.h"
 
-Colour trace(const Ray& ray, const Sphere& sphere, const Light& light);
+// toLight: the unit direction to the sun.
+Colour trace(const Ray& ray, const Sphere& sphere, const Vector& toLight);
