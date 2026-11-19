@@ -6,7 +6,7 @@ Sphere::Sphere(const Vector& centre, double radius, const Material& material)
 
 const Material& Sphere::material() const { return _material; }
 
-bool Sphere::isHitBy(const Ray& ray) const {
+std::optional<HitInfo> Sphere::hit(const Ray& ray) const {
     Vector D = ray.direction();
     Vector L = ray.origin() - _centre;
 
@@ -16,12 +16,19 @@ bool Sphere::isHitBy(const Ray& ray) const {
 
     double discriminant = b * b - 4.0 * a * c;
     if (discriminant < 0.0) {
-        return false;
+        return std::nullopt;
     }
 
     double root = std::sqrt(discriminant);
-    double t1 = (-b - root) / (2.0 * a);
-    double t2 = (-b + root) / (2.0 * a);
+    double nearT = (-b - root) / (2.0 * a);
+    double farT = (-b + root) / (2.0 * a);
 
-    return t1 > 0.0 || t2 > 0.0;
+    double t = nearT > 0.0 ? nearT : farT;
+    if (t <= 0.0) {
+        return std::nullopt;
+    }
+
+    Vector point = ray.at(t);
+    Vector normal = (point - _centre).normalised();
+    return HitInfo{point, normal, _material};
 }
