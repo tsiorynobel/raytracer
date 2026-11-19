@@ -46,6 +46,10 @@ classDiagram
         save(image, path)
     }
     class PngSaver
+    class Light {
+        position
+        colour
+    }
 
     Ray --> "2" Vector : origin, direction
     Sphere --> Vector : centre
@@ -58,6 +62,8 @@ classDiagram
     Image --> "*" Colour : pixels
     ImageSaver <|.. PngSaver
     ImageSaver ..> Image : saves
+    Light --> Vector : position
+    Light --> Colour : colour
 ```
 
 ## Decisions recorded so far
@@ -83,8 +89,10 @@ classDiagram
 - Colours outside 0..1 do not fit in a byte when saved.
 - `render` takes one concrete `Sphere`.
 - `main` does not catch the saver's exception.
+- A `Light` is a point light (a position and a colour). Nothing uses it yet: the scene
+  is still lit by nothing, until the shading chapter.
 
 ## Folder dependencies
 
-`render/` → `geometry/` → `math/`, `material/` → `colour/`, `render/` → `image/` ← `output/`.
+`render/` → `geometry/` → `math/`, `material/` → `colour/`, `render/` → `image/` ← `output/`, `light/` → `math/`, `colour/`.
 One cycle, parked above: `geometry/` ↔ `material/`.
